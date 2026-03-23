@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marketing Squad — James IA V3.0</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #08080d;
+      --surface:   #0f0f18;
+      --surface2:  #13131e;
+      --border:    rgba(255,255,255,0.07);
+      --border2:   rgba(255,255,255,0.12);
+      --gold:      #c9a84c;
+      --gold-dim:  rgba(201,168,76,0.12);
+      --gold-glow: rgba(201,168,76,0.2);
+      --white:     #f0ede8;
+      --muted:     rgba(240,237,232,0.45);
+      --muted2:    rgba(240,237,232,0.65);
+      --mk:        #4f8ef7;
+      --renan:     #3ecf8e;
+      --dali:      #e07b54;
+      --davinci:   #9b6cf7;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,8,13,0.9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+
+    .nav-brand {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.3px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    /* ── SECTIONS ────────────────────────────────────────── */
+    section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    section + section {
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      opacity: 0.85;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 3.5vw, 38px);
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 15px;
+      color: var(--muted2);
+      font-weight: 300;
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    /* ── HERO / ORGANOGRAMA ──────────────────────────────── */
+    #squad {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 80px;
+      gap: 0;
+    }
+
+    .hero-header {
+      text-align: center;
+      margin-bottom: 56px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .orchestrator {
+      background: var(--surface);
+      border: 1px solid var(--gold);
+      border-radius: 16px;
+      padding: 26px 36px;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      width: 100%;
+      max-width: 580px;
+      box-shadow: 0 0 48px var(--gold-glow);
+      transition: box-shadow 0.3s;
+    }
+
+    .orchestrator:hover { box-shadow: 0 0 72px var(--gold-glow); }
+
+    .orch-avatar {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      background: var(--gold-dim);
+      border: 1px solid rgba(201,168,76,0.35);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
+    }
+
+    .orch-name { font-size: 17px; font-weight: 700; color: var(--gold); }
+    .orch-role { font-size: 10.5px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+    .orch-desc { font-size: 12.5px; color: var(--muted2); line-height: 1.65; margin-top: 8px; }
+    .orch-badge {
+      background: var(--gold-dim);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold);
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 100px; flex-shrink: 0;
+    }
+
+    .flow-connector {
+      display: flex; flex-direction: column; align-items: center;
+      width: 100%; max-width: 900px;
+    }
+
+    .line-v { width: 1px; height: 28px; background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.1)); }
+
+    .line-h-row {
+      width: 100%; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,168,76,0.4) 20%, rgba(201,168,76,0.4) 80%, transparent);
+    }
+
+    .branches-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); width: 100%;
+    }
+
+    .branch-line { display: flex; justify-content: center; }
+    .branch-line span { width: 1px; height: 24px; background: linear-gradient(to bottom, rgba(201,168,76,0.35), transparent); }
+
+    .agents {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 14px; width: 100%; max-width: 900px;
+    }
+
+    .agent {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 18px;
+      display: flex; flex-direction: column; gap: 12px;
+      position: relative; overflow: hidden;
+      transition: border-color 0.25s, transform 0.2s, box-shadow 0.3s;
+    }
+
+    .agent::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 2px; border-radius: 14px 14px 0 0;
+    }
+
+    .agent:hover { transform: translateY(-4px); }
+
+    .agent.mk::before    { background: var(--mk); }
+    .agent.renan::before { background: var(--renan); }
+    .agent.dali::before  { background: var(--dali); }
+    .agent.dv::before    { background: var(--davinci); }
+
+    .agent.mk:hover    { border-color: rgba(79,142,247,0.3);  box-shadow: 0 10px 36px rgba(79,142,247,0.10); }
+    .agent.renan:hover { border-color: rgba(62,207,142,0.3);  box-shadow: 0 10px 36px rgba(62,207,142,0.10); }
+    .agent.dali:hover  { border-color: rgba(224,123,84,0.3);  box-shadow: 0 10px 36px rgba(224,123,84,0.10); }
+    .agent.dv:hover    { border-color: rgba(155,108,247,0.3); box-shadow: 0 10px 36px rgba(155,108,247,0.10); }
+
+    .agent-header { display: flex; align-items: center; gap: 11px; }
+
+    .agent-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; flex-shrink: 0;
+    }
+
+    .mk .agent-icon    { background: rgba(79,142,247,0.1); }
+    .renan .agent-icon { background: rgba(62,207,142,0.1); }
+    .dali .agent-icon  { background: rgba(224,123,84,0.1); }
+    .dv .agent-icon    { background: rgba(155,108,247,0.1); }
+
+    .agent-name { font-size: 13.5px; font-weight: 700; color: var(--white); }
+
+    .agent-cmd {
+      font-size: 10px; font-weight: 500; margin-top: 2px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .mk .agent-cmd { color: var(--mk); }
+    .renan .agent-cmd { color: var(--renan); }
+    .dali .agent-cmd { color: var(--dali); }
+    .dv .agent-cmd { color: var(--davinci); }
+
+    .agent-tagline {
+      font-size: 11px; font-style: italic; color: var(--muted);
+      line-height: 1.55; padding-top: 10px; border-top: 1px solid var(--border);
+    }
+
+    .agent-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    .tag { font-size: 10px; font-weight: 500; padding: 3px 8px; border-radius: 100px; }
+
+    .mk .tag    { background: rgba(79,142,247,0.09);  color: rgba(79,142,247,0.85);  border: 1px solid rgba(79,142,247,0.18); }
+    .renan .tag { background: rgba(62,207,142,0.09);  color: rgba(62,207,142,0.85);  border: 1px solid rgba(62,207,142,0.18); }
+    .dali .tag  { background: rgba(224,123,84,0.09);  color: rgba(224,123,84,0.85);  border: 1px solid rgba(224,123,84,0.18); }
+    .dv .tag    { background: rgba(155,108,247,0.09); color: rgba(155,108,247,0.85); border: 1px solid rgba(155,108,247,0.18); }
+
+    /* ── GENERIC COMPONENTS ──────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 32px;
+    }
+
+    .card + .card { margin-top: 16px; }
+
+    .card-title {
+      font-size: 15px; font-weight: 700;
+      color: var(--white); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .card-title .icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+    }
+
+    .card p { font-size: 13.5px; color: var(--muted2); line-height: 1.75; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+    /* ── AGENT DETAIL CARDS ──────────────────────────────── */
+    .agent-detail {
+      background: var(--surface);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .agent-detail-header {
+      padding: 28px 32px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex; gap: 20px; align-items: flex-start;
+    }
+
+    .agent-detail-icon {
+      width: 56px; height: 56px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; flex-shrink: 0;
+    }
+
+    .ad-mk    { background: rgba(79,142,247,0.12);  border: 1px solid rgba(79,142,247,0.2);  }
+    .ad-renan { background: rgba(62,207,142,0.12);  border: 1px solid rgba(62,207,142,0.2);  }
+    .ad-dali  { background: rgba(224,123,84,0.12);  border: 1px solid rgba(224,123,84,0.2);  }
+    .ad-dv    { background: rgba(155,108,247,0.12); border: 1px solid rgba(155,108,247,0.2); }
+
+    .agent-detail-name { font-size: 20px; font-weight: 700; color: var(--white); }
+    .agent-detail-tagline { font-size: 13px; font-style: italic; color: var(--muted); margin-top: 4px; }
+    .agent-detail-cmd {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      padding: 3px 10px; border-radius: 6px; margin-top: 8px; display: inline-block;
+    }
+
+    .cmd-mk    { background: rgba(79,142,247,0.1);  color: var(--mk);  border: 1px solid rgba(79,142,247,0.2); }
+    .cmd-renan { background: rgba(62,207,142,0.1);  color: var(--renan);  border: 1px solid rgba(62,207,142,0.2); }
+    .cmd-dali  { background: rgba(224,123,84,0.1);  color: var(--dali);  border: 1px solid rgba(224,123,84,0.2); }
+    .cmd-dv    { background: rgba(155,108,247,0.1); color: var(--davinci); border: 1px solid rgba(155,108,247,0.2); }
+
+    .border-mk    { border: 1px solid rgba(79,142,247,0.15); }
+    .border-renan { border: 1px solid rgba(62,207,142,0.15); }
+    .border-dali  { border: 1px solid rgba(224,123,84,0.15); }
+    .border-dv    { border: 1px solid rgba(155,108,247,0.15); }
+
+    .agent-detail-body { padding: 28px 32px; display: flex; flex-direction: column; gap: 24px; }
+
+    .detail-block h4 {
+      font-size: 11px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+    }
+
+    .detail-block p { font-size: 13.5px; color: var(--muted2); line-height: 1.75; }
+
+    .func-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+    .func-list li {
+      font-size: 13px; color: var(--muted2); line-height: 1.6;
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+
+    .func-list li::before {
+      content: '→'; font-size: 11px; margin-top: 3px; flex-shrink: 0;
+    }
+
+    .func-list.mk li::before    { color: var(--mk); }
+    .func-list.renan li::before { color: var(--renan); }
+    .func-list.dali li::before  { color: var(--dali); }
+    .func-list.dv li::before    { color: var(--davinci); }
+
+    /* ── JAMES COREBRAIN ─────────────────────────────────── */
+    .brain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .brain-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 24px;
+    }
+
+    .brain-card-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold); opacity: 0.75;
+      margin-bottom: 8px;
+    }
+
+    .brain-card-title { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .brain-card p { font-size: 12.5px; color: var(--muted); line-height: 1.7; }
+
+    .james-highlight {
+      background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.03));
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 14px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+    }
+
+    .james-highlight p { font-size: 15px; color: var(--muted2); line-height: 1.8; font-weight: 300; }
+    .james-highlight strong { color: var(--gold); font-weight: 600; }
+
+    /* ── FLOW STEPS ──────────────────────────────────────── */
+    .flow-steps { display: flex; flex-direction: column; gap: 0; }
+
+    .flow-step {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .flow-step:last-child { border-bottom: none; }
+
+    .step-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--gold-dim); border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold); font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+    }
+
+    .step-content h4 { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+    .step-content p { font-size: 13px; color: var(--muted2); line-height: 1.7; }
+
+    .step-output {
+      margin-top: 10px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      color: var(--renan);
+      line-height: 1.6;
+    }
+
+    /* ── CODE BLOCKS ─────────────────────────────────────── */
+    .code-block {
+      background: #0d0d14;
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      padding: 20px 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      line-height: 1.8;
+      overflow-x: auto;
+      margin: 12px 0;
+    }
+
+    .code-block .comment { color: rgba(240,237,232,0.3); }
+    .code-block .cmd     { color: #3ecf8e; }
+    .code-block .str     { color: #c9a84c; }
+    .code-block .kw      { color: #9b6cf7; }
+    .code-block .path    { color: #4f8ef7; }
+
+    .install-step {
+      display: flex; flex-direction: column; gap: 8px;
+      padding: 20px 0; border-bottom: 1px solid var(--border);
+    }
+
+    .install-step:last-child { border-bottom: none; }
+
+    .install-step-header {
+      display: flex; align-items: center; gap: 12px;
+    }
+
+    .step-badge {
+      background: var(--surface2); border: 1px solid var(--border2);
+      color: var(--gold); font-size: 11px; font-weight: 700;
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .install-step h4 { font-size: 14px; font-weight: 600; color: var(--white); }
+    .install-step p  { font-size: 13px; color: var(--muted2); line-height: 1.7; padding-left: 40px; }
+
+    /* ── OUTPUT SHOWCASE ─────────────────────────────────── */
+    .output-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+    .output-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .output-card-icon { font-size: 24px; margin-bottom: 12px; }
+    .output-card h4   { font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+    .output-card p    { font-size: 12px; color: var(--muted); line-height: 1.65; }
+
+    /* ── DIVIDER ─────────────────────────────────────────── */
+    .divider {
+      width: 48px; height: 2px;
+      background: var(--gold);
+      opacity: 0.4;
+      margin: 0 0 32px 0;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+
+    .footer-brand { font-size: 13px; font-weight: 600; color: var(--gold); }
+    .footer-sub   { font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+
+    @media (max-width: 700px) {
+      .agents, .two-col, .three-col, .output-grid, .brain-grid { grid-template-columns: 1fr 1fr; }
+      nav { padding: 0 20px; }
+      .nav-links { gap: 16px; }
+      .nav-links li:nth-child(n+4) { display: none; }
+    }
+
+    @media (max-width: 460px) {
+      .agents, .two-col, .three-col, .output-grid, .brain-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-brand">Marketing Squad · James IA V3.0</span>
+  <ul class="nav-links">
+    <li><a href="#squad">Squad</a></li>
+    <li><a href="#orquestracao">Orquestração</a></li>
+    <li><a href="#james">James IA</a></li>
+    <li><a href="#agentes">Agentes</a></li>
+    <li><a href="#pratica">Na Prática</a></li>
+    <li><a href="#instalacao">Instalação</a></li>
+    <li><a href="#github">GitHub</a></li>
+  </ul>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SEÇÃO 1 — ORGANOGRAMA
+════════════════════════════════════════════════════════ -->
+<section id="squad" style="display:flex; flex-direction:column; align-items:center; gap:0;">
+
+  <div class="hero-header">
+    <span class="section-label">Marketing Squad</span>
+    <h1 class="section-title" style="text-align:center;">Squad de Agentes IA</h1>
+    <p style="font-size:14px; color:var(--muted); font-weight:300; letter-spacing:0.3px; text-align:center;">
+      Orquestração Multi-Agêntica Inteligente · 5 agentes · 1 objetivo
+    </p>
+  </div>
+
+  <!-- JAMES -->
+  <div class="orchestrator">
+    <div class="orch-avatar">👑</div>
+    <div style="flex:1;">
+      <div class="orch-name">James IA V3.0</div>
+      <div class="orch-role">Orquestrador-Chefe · Estrategista · Copywriter</div>
+      <div class="orch-desc">Pensa antes de todo mundo. Pesquisa, define estratégia e distribui cada tarefa para o agente certo — no momento certo do funil.</div>
+    </div>
+    <span class="orch-badge">Líder</span>
+  </div>
+
+  <!-- CONNECTOR -->
+  <div class="flow-connector">
+    <div class="line-v"></div>
+    <div class="line-h-row"></div>
+    <div class="branches-row">
+      <div class="branch-line"><span></span></div>
+      <div class="branch-line"><span></span></div>
+      <div class="branch-line"><span></span></div>
+      <div class="branch-line"><span></span></div>
+    </div>
+  </div>
+
+  <!-- AGENTS -->
+  <div class="agents" style="max-width:900px;">
+
+    <div class="agent mk">
+      <div class="agent-header">
+        <div class="agent-icon">✍️</div>
+        <div>
+          <div class="agent-name">Mk Franklin</div>
+          <div class="agent-cmd">/copywriter</div>
+        </div>
+      </div>
+      <div class="agent-tagline">"O copy que fecha"<br>Escola americana. Cada palavra com propósito, cada frase puxando a próxima.</div>
+      <div class="agent-tags">
+        <span class="tag">Copy</span><span class="tag">E-mail</span><span class="tag">VSL</span>
+        <span class="tag">Anúncios</span><span class="tag">WhatsApp</span><span class="tag">Scripts</span>
+      </div>
+    </div>
+
+    <div class="agent renan">
+      <div class="agent-header">
+        <div class="agent-icon">📊</div>
+        <div>
+          <div class="agent-name">Renanzinho</div>
+          <div class="agent-cmd">/gestor-trafego</div>
+        </div>
+      </div>
+      <div class="agent-tagline">"O cara dos números que também entende gente"<br>Analítico, questionador. Escala programática é o forte.</div>
+      <div class="agent-tags">
+        <span class="tag">Meta Ads</span><span class="tag">Google Ads</span>
+        <span class="tag">Escala</span><span class="tag">Análise</span><span class="tag">Programático</span>
+      </div>
+    </div>
+
+    <div class="agent dali">
+      <div class="agent-header">
+        <div class="agent-icon">🎨</div>
+        <div>
+          <div class="agent-name">Dalí Studio</div>
+          <div class="agent-cmd">/criador-marca</div>
+        </div>
+      </div>
+      <div class="agent-tagline">"Visão antes de execução"<br>Não cria logos. Cria marcas que ficam na memória.</div>
+      <div class="agent-tags">
+        <span class="tag">Logo</span><span class="tag">Branding</span>
+        <span class="tag">Identidade</span><span class="tag">Artes</span><span class="tag">Layout</span>
+      </div>
+    </div>
+
+    <div class="agent dv">
+      <div class="agent-header">
+        <div class="agent-icon">⚡</div>
+        <div>
+          <div class="agent-name">DaVinci Pro Max</div>
+          <div class="agent-cmd">/ui-ux-pro-max</div>
+        </div>
+      </div>
+      <div class="agent-tagline">"Onde engenharia encontra estética"<br>Interface que converte. Produto que fideliza.</div>
+      <div class="agent-tags">
+        <span class="tag">UI/UX</span><span class="tag">Frontend</span>
+        <span class="tag">Produto</span><span class="tag">Design System</span>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SEÇÃO 2 — ORQUESTRAÇÃO MULTI-AGÊNTICA
+════════════════════════════════════════════════════════ -->
+<section id="orquestracao">
+  <div class="section-label">Conceito</div>
+  <h2 class="section-title">Orquestração Multi-Agêntica Inteligente</h2>
+  <div class="divider"></div>
+  <p class="section-sub">
+    Um novo modelo de operação de marketing digital onde agentes de IA especializados trabalham de forma coordenada, cada um executando com profundidade máxima em sua área, guiados por um orquestrador central que toma todas as decisões estratégicas.
+  </p>
+
+  <div class="james-highlight">
+    <p>
+      Diferente de um único modelo de linguagem respondendo a tudo de forma genérica,
+      a <strong>Orquestração Multi-Agêntica Inteligente</strong> funciona como um time de especialistas reais:
+      cada agente carrega um conjunto específico de conhecimento, protocolos e formas de pensar —
+      ativados sob demanda pelo orquestrador. O resultado é
+      <strong>precisão especializada</strong> em cada entrega, sem perder a <strong>visão unificada</strong> do todo.
+    </p>
+  </div>
+
+  <div class="three-col">
+
+    <div class="card">
+      <div class="card-title">
+        <div class="icon" style="background:var(--gold-dim);">🎯</div>
+        Especialização Real
+      </div>
+      <p>Cada agente tem identidade, protocolo e expertise própria. O Mk Franklin não pensa como o Renanzinho — e isso é intencional. Especialização profunda em cada domínio.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="icon" style="background:var(--gold-dim);">🔄</div>
+        Roteamento Inteligente
+      </div>
+      <p>James IA analisa cada pedido e decide qual agente aciona, com qual briefing e qual contexto. Nenhum agente age sem direcionamento estratégico prévio.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="icon" style="background:var(--gold-dim);">📦</div>
+        Base de Conhecimento Central
+      </div>
+      <p>Todos os agentes consomem os mesmos arquivos de conhecimento do projeto — avatar, produto, linguagem, briefing. Consistência garantida em todas as entregas.</p>
+    </div>
+
+  </div>
+
+  <div style="margin-top:16px;" class="two-col">
+
+    <div class="card">
+      <div class="card-title">
+        <div class="icon" style="background:var(--gold-dim);">⚡</div>
+        Execução Paralela
+      </div>
+      <p>Enquanto James define a estratégia, os agentes podem ser acionados em sequência ou em paralelo — copy, tráfego, marca e produto avançando ao mesmo tempo sem conflito.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="icon" style="background:var(--gold-dim);">🧠</div>
+        Memória Persistente
+      </div>
+      <p>O sistema mantém memória do projeto entre conversas. Contexto, decisões e aprendizados acumulados — o squad cresce junto com o projeto ao longo do tempo.</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SEÇÃO 3 — JAMES IA V3.0
+════════════════════════════════════════════════════════ -->
+<section id="james">
+  <div class="section-label">Orquestrador-Chefe</div>
+  <h2 class="section-title">James IA V3.0 — Engenharia & CoreBrain</h2>
+  <div class="divider"></div>
+  <p class="section-sub">
+    James não é um agente de execução. É o cérebro estratégico do squad. Antes de qualquer entrega, James pesquisa, analisa e define — garantindo que cada agente execute com o direcionamento certo.
+  </p>
+
+  <div class="james-highlight" style="margin-bottom:32px;">
+    <p>
+      James IA V3.0 combina <strong>20 anos de expertise em copywriting e estratégia de marketing</strong> com
+      capacidade de <strong>pesquisa profunda, análise de mercado e orquestração de squads</strong>.
+      É a fusão de um CMO estratégico com um copywriter sênior —
+      o único agente que pensa no funil completo antes de delegar qualquer execução.
+    </p>
+  </div>
+
+  <div class="brain-grid" style="margin-bottom:16px;">
+
+    <div class="brain-card">
+      <div class="brain-card-label">CoreBrain 01</div>
+      <div class="brain-card-title">Especialização de Nicho</div>
+      <p>Lê o briefing do projeto e ativa conhecimento específico do mercado. Para o Currículo Express: empregabilidade, ATS, candidatos em transição, linguagem de carreira. Cada projeto recebe terminologia e gatilhos do seu nicho.</p>
+    </div>
+
+    <div class="brain-card">
+      <div class="brain-card-label">CoreBrain 02</div>
+      <div class="brain-card-title">Níveis de Consciência</div>
+      <p>Mapeia onde o público está na escala de Eugene Schwartz (1–5) antes de definir o ângulo de qualquer peça. Inconsciente do problema até totalmente consciente do produto — cada nível tem copy diferente.</p>
+    </div>
+
+    <div class="brain-card">
+      <div class="brain-card-label">CoreBrain 03</div>
+      <div class="brain-card-title">Pensamento de Funil</div>
+      <p>Antes de qualquer execução, mapeia: de onde vem o lead, o que sabe, o que sente, qual o único objetivo da peça e para onde vai depois. Cada material é uma engrenagem dentro de uma máquina maior.</p>
+    </div>
+
+    <div class="brain-card">
+      <div class="brain-card-label">CoreBrain 04</div>
+      <div class="brain-card-title">Pesquisa de Mercado</div>
+      <p>Conduz pesquisas estruturadas: tamanho de mercado, concorrência direta e indireta, benchmarks de nicho, tendências e linguagem real do público. Toda afirmação precisa de fonte — nunca achismo.</p>
+    </div>
+
+    <div class="brain-card">
+      <div class="brain-card-label">CoreBrain 05</div>
+      <div class="brain-card-title">Análise Estratégica</div>
+      <p>Aplica SWOT com dados reais, define USP validada, Big Idea de campanha e projeta 3 cenários (otimista, realista, conservador) antes de recomendar qualquer estratégia de funil.</p>
+    </div>
+
+    <div class="brain-card">
+      <div class="brain-card-label">CoreBrain 06</div>
+      <div class="brain-card-title">Roteamento de Agentes</div>
+      <p>Identifica qual agente acionar para cada demanda, prepara o briefing estratégico e instrui o usuário com o comando correto. Garante que nenhum agente execute sem direcionamento claro.</p>
+    </div>
+
+  </div>
+
+  <h3 style="font-size:15px; font-weight:700; color:var(--white); margin:32px 0 16px;">Funcionalidades Gerais</h3>
+  <div class="two-col">
+
+    <div class="card">
+      <div class="card-title"><div class="icon" style="background:var(--gold-dim);">📚</div>Base de Conhecimento</div>
+      <p>Consulta obrigatória dos 5 arquivos da pasta <code style="font-family:monospace; color:var(--gold); font-size:12px;">conhecimento/</code> antes de qualquer criação: briefing, avatar, produto, linguagem e scripts de referência. Sem esses dados, não escreve.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon" style="background:var(--gold-dim);">✍️</div>Copywriting Direto</div>
+      <p>Além de orquestrar, James escreve copy. Domina todos os frameworks (AIDA, PAS, PASTOR, BAB, 4Ps) e todos os formatos — emails, landing pages, VSL, anúncios, WhatsApp, scripts de vídeo.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon" style="background:var(--gold-dim);">🚫</div>Protocolo Anti-IA</div>
+      <p>Lista de palavras e padrões proibidos (imagine, incrível, revolucionário, travessões excessivos, frases binárias). Cada entrega soa como um humano real — não como output automático de IA.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon" style="background:var(--gold-dim);">🔁</div>Versionamento</div>
+      <p>Gerencia versões A/B de copies, preserva originais, cria iterações com sufixo de versão e documenta as diferenças estratégicas entre cada variação para facilitar os testes.</p>
+    </div>
+
+  </div>
+
+  <h3 style="font-size:15px; font-weight:700; color:var(--white); margin:32px 0 16px;">Bases Teóricas</h3>
+  <div style="display:flex; flex-wrap:wrap; gap:8px;">
+    <span style="background:var(--gold-dim); border:1px solid rgba(201,168,76,0.2); color:var(--gold); font-size:11px; font-weight:500; padding:5px 12px; border-radius:100px;">David Ogilvy</span>
+    <span style="background:var(--gold-dim); border:1px solid rgba(201,168,76,0.2); color:var(--gold); font-size:11px; font-weight:500; padding:5px 12px; border-radius:100px;">Eugene Schwartz</span>
+    <span style="background:var(--gold-dim); border:1px solid rgba(201,168,76,0.2); color:var(--gold); font-size:11px; font-weight:500; padding:5px 12px; border-radius:100px;">Gary Halbert</span>
+    <span style="background:var(--gold-dim); border:1px solid rgba(201,168,76,0.2); color:var(--gold); font-size:11px; font-weight:500; padding:5px 12px; border-radius:100px;">Joseph Sugarman</span>
+    <span style="background:var(--gold-dim); border:1px solid rgba(201,168,76,0.2); color:var(--gold); font-size:11px; font-weight:500; padding:5px 12px; border-radius:100px;">Dan Kennedy</span>
+    <span style="background:var(--gold-dim); border:1px solid rgba(201,168,76,0.2); color:var(--gold); font-size:11px; font-weight:500; padding:5px 12px; border-radius:100px;">Robert Cialdini</span>
+    <span style="background:var(--gold-dim); border:1px solid rgba(201,168,76,0.2); color:var(--gold); font-size:11px; font-weight:500; padding:5px 12px; border-radius:100px;">Alex Hormozi</span>
+    <span style="background:var(--gold-dim); border:1px solid rgba(201,168,76,0.2); color:var(--gold); font-size:11px; font-weight:500; padding:5px 12px; border-radius:100px;">Russell Brunson</span>
+    <span style="background:var(--gold-dim); border:1px solid rgba(201,168,76,0.2); color:var(--gold); font-size:11px; font-weight:500; padding:5px 12px; border-radius:100px;">Michael Masterson</span>
+    <span style="background:var(--gold-dim); border:1px solid rgba(201,168,76,0.2); color:var(--gold); font-size:11px; font-weight:500; padding:5px 12px; border-radius:100px;">Ben Settle</span>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SEÇÃO 4 — OS AGENTES
+════════════════════════════════════════════════════════ -->
+<section id="agentes">
+  <div class="section-label">Executores</div>
+  <h2 class="section-title">Os 4 Agentes do Squad</h2>
+  <div class="divider"></div>
+  <p class="section-sub">Cada agente carrega uma identidade distinta, protocolo próprio e expertise profunda. Executores de alto desempenho que operam sob direcionamento do James IA V3.0.</p>
+
+  <!-- MK FRANKLIN -->
+  <div class="agent-detail border-mk">
+    <div class="agent-detail-header">
+      <div class="agent-detail-icon ad-mk">✍️</div>
+      <div>
+        <div class="agent-detail-name">Mk Franklin</div>
+        <div class="agent-detail-tagline">"O copy que fecha"</div>
+        <span class="agent-detail-cmd cmd-mk">/copywriter</span>
+      </div>
+    </div>
+    <div class="agent-detail-body">
+      <div class="detail-block">
+        <h4>Identidade</h4>
+        <p>O nome não é coincidência. Benjamin Franklin não escrevia para impressionar — escrevia para persuadir, mover, fazer acontecer. Mk Franklin é assim: cada palavra tem propósito, cada frase puxa a próxima, cada parágrafo está a serviço de uma única coisa — a ação do leitor. Escola americana, resultado em português.</p>
+      </div>
+      <div class="detail-block">
+        <h4>Protocolo</h4>
+        <p>Nunca escreve sem os 3 documentos obrigatórios: briefing da campanha, manual de comunicação do expert e estudo de avatar. Se não tem esses dados, pede antes de digitar uma linha. Aplica mapa de contexto interno antes de cada peça: de onde vem o lead, o que sabe, o que sente, qual o único objetivo da peça e para onde vai depois.</p>
+      </div>
+      <div class="detail-block">
+        <h4>Funções e Entregas</h4>
+        <ul class="func-list mk">
+          <li><strong>E-mails:</strong> sequências de lançamento, nutrição, perpétuo e recuperação — com assunto, preview, corpo e CTA</li>
+          <li><strong>Páginas de vendas:</strong> long-form e short-form com Hero → Problema → Solução → Prova → Oferta → Garantia → CTA → FAQ</li>
+          <li><strong>VSL e scripts de vídeo:</strong> Ideia + Roteirização + Observações de gravação + Teleprompter + Bulletpoints</li>
+          <li><strong>Anúncios em imagem:</strong> Headline (7 palavras) + Subheadline + Informação + CTA "APERTE EM SAIBA MAIS"</li>
+          <li><strong>Anúncios em vídeo:</strong> Hook (3s) + Roteiro + Copy completa + Legenda do anúncio</li>
+          <li><strong>WhatsApp grupos e API:</strong> mensagens formatadas nativas, até 900 e 500 caracteres respectivamente</li>
+          <li><strong>Legendas e conteúdo orgânico:</strong> Instagram, LinkedIn, TikTok com hook, corpo e CTA de engajamento</li>
+          <li><strong>Planejamento de conteúdo:</strong> plano mensal com pilar, ângulo, hook e CTA para cada post</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- RENANZINHO -->
+  <div class="agent-detail border-renan">
+    <div class="agent-detail-header">
+      <div class="agent-detail-icon ad-renan">📊</div>
+      <div>
+        <div class="agent-detail-name">Renanzinho</div>
+        <div class="agent-detail-tagline">"O cara dos números que também entende gente"</div>
+        <span class="agent-detail-cmd cmd-renan">/gestor-trafego</span>
+      </div>
+    </div>
+    <div class="agent-detail-body">
+      <div class="detail-block">
+        <h4>Identidade</h4>
+        <p>O diminutivo não é à toa — está no miolo da operação, mais perto da campanha do que qualquer outro agente. Analítico, questionador e com raciocínio fora da caixa: não aceita a primeira leitura dos dados, cruza métricas que a maioria não associa. Escala programática é o forte — pensa em sistemas, automações e lógica de bid, não em ajustes pontuais. Por trás de cada CPL, há um humano tomando decisão — e Renanzinho nunca esquece isso.</p>
+      </div>
+      <div class="detail-block">
+        <h4>Protocolo</h4>
+        <p>Coleta briefing completo antes de montar qualquer plano: objetivo, números do negócio, histórico de campanhas, prazo, ativos disponíveis e plataforma. Calcula viabilidade com projeção de CPL, leads, vendas, faturamento e ROAS antes de recomendar qualquer estrutura. Se os números não fecham, diz claramente — nunca valida metas irreais.</p>
+      </div>
+      <div class="detail-block">
+        <h4>Funções e Entregas</h4>
+        <ul class="func-list renan">
+          <li><strong>Planejamento de campanha:</strong> estrutura completa com campanhas, adsets, públicos, criativos, orçamentos e nomenclatura</li>
+          <li><strong>Projeção de viabilidade:</strong> CPL estimado, leads projetados, ROAS esperado, CPL máximo sustentável</li>
+          <li><strong>Estratégia de criativos:</strong> matriz de ângulos (dor, desejo, prova, curiosidade, urgência) com hook e CTA por ângulo</li>
+          <li><strong>Cronograma de execução:</strong> pré-lançamento → fase de aprendizado → primeira análise → otimização → escala</li>
+          <li><strong>Plano de escala programática:</strong> escala vertical (orçamento), horizontal (duplicação) e por criativos</li>
+          <li><strong>Análise de relatórios:</strong> 5 camadas — visão geral, entrega, criativo, público, funil pós-clique</li>
+          <li><strong>Relatório de performance:</strong> resumo executivo, painel de métricas, diagnóstico de causa raiz e otimizações priorizadas</li>
+          <li><strong>Configurações técnicas:</strong> pixel, eventos, Conversions API, UTMs e naming convention</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DALÍ STUDIO -->
+  <div class="agent-detail border-dali">
+    <div class="agent-detail-header">
+      <div class="agent-detail-icon ad-dali">🎨</div>
+      <div>
+        <div class="agent-detail-name">Dalí Studio</div>
+        <div class="agent-detail-tagline">"Visão antes de execução"</div>
+        <span class="agent-detail-cmd cmd-dali">/criador-marca</span>
+      </div>
+    </div>
+    <div class="agent-detail-body">
+      <div class="detail-block">
+        <h4>Identidade</h4>
+        <p>Salvador Dalí não criava o que era esperado — criava o que era inesquecível. Dalí Studio opera assim: antes de qualquer traço, há pensamento. Antes de qualquer pixel, há posicionamento. Questiona antes de criar, pesquisa antes de propor. Não cria logos — cria marcas que servem para exatamente uma empresa no mundo.</p>
+      </div>
+      <div class="detail-block">
+        <h4>Protocolo Anti-IA</h4>
+        <p>Antes de entregar qualquer peça, passa pelo filtro: "Se eu mostrasse isso para um designer experiente, ele diria que foi feito por IA?" Se a resposta for sim ou talvez, reprova e refaz. Elimina gradientes genéricos, ícones abstratos, fontes sem personalidade e composições simétricas demais. Justifica cada decisão criativa com base no briefing.</p>
+      </div>
+      <div class="detail-block">
+        <h4>Funções e Entregas</h4>
+        <ul class="func-list dali">
+          <li><strong>Logomarca:</strong> conceituação (2-3 conceitos antes de executar) + execução SVG com versões principal, alternativa, favicon e monocromática</li>
+          <li><strong>Branding Book:</strong> propósito, logomarca, cores (HEX/RGB/CMYK), tipografia, elementos visuais e aplicações contextualizadas</li>
+          <li><strong>Templates de conteúdo:</strong> post feed, carrossel, stories, destaque, banner e thumbnail — em HTML/SVG renderizável</li>
+          <li><strong>Layout de páginas:</strong> wireframe → direção visual → HTML/CSS funcional e responsivo (desktop + mobile)</li>
+          <li><strong>Especificações técnicas:</strong> paleta completa, escala tipográfica, área de proteção e tamanho mínimo do logo</li>
+          <li><strong>Direcionamento para design:</strong> briefing criativo para designers humanos com referências, conceito e diretrizes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAVINCI PRO MAX -->
+  <div class="agent-detail border-dv">
+    <div class="agent-detail-header">
+      <div class="agent-detail-icon ad-dv">⚡</div>
+      <div>
+        <div class="agent-detail-name">DaVinci Pro Max</div>
+        <div class="agent-detail-tagline">"Onde engenharia encontra estética"</div>
+        <span class="agent-detail-cmd cmd-dv">/ui-ux-pro-max</span>
+      </div>
+    </div>
+    <div class="agent-detail-body">
+      <div class="detail-block">
+        <h4>Identidade</h4>
+        <p>Leonardo da Vinci não separava ciência de arte — para ele, eram a mesma coisa vista de ângulos diferentes. DaVinci Pro Max opera com essa lógica: código limpo que também é bonito, interface que também é acessível, produto que também converte. Não faz apenas o que funciona. Faz o que funciona <em>e</em> impressiona. Não entrega só o que foi pedido — entrega o que deveria ter sido pedido.</p>
+      </div>
+      <div class="detail-block">
+        <h4>Banco de Dados Interno</h4>
+        <p>Motor de busca BM25 com acesso a: 50+ estilos de UI, 161 paletas de cores por tipo de produto, 57 combinações de fontes com Google Fonts, 161 tipos de produto com lógica de recomendação, 99 guidelines de UX e 25 tipos de gráficos. Suporte a 10 stacks: React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, Tailwind, shadcn/ui e HTML/CSS.</p>
+      </div>
+      <div class="detail-block">
+        <h4>Funções e Entregas</h4>
+        <ul class="func-list dv">
+          <li><strong>Design de interfaces:</strong> páginas, telas, componentes e fluxos com estilo adequado ao tipo de produto</li>
+          <li><strong>Código frontend:</strong> HTML/CSS e componentes React/Vue/Next.js responsivos e acessíveis</li>
+          <li><strong>Sistema de design:</strong> tokens (primitivo → semântico → componente), escala tipográfica, paleta, espaçamento e estados</li>
+          <li><strong>Auditoria de UX:</strong> revisão por 10 categorias priorizadas: acessibilidade, touch, performance, estilo, layout, tipografia, animação, formulários, navegação e dados</li>
+          <li><strong>Recomendações por stack:</strong> componentes específicos, bibliotecas e padrões para a tecnologia do projeto</li>
+          <li><strong>Otimização de produto:</strong> identificação de anti-padrões e correção com base em Apple HIG e Material Design</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SEÇÃO 5 — NA PRÁTICA
+════════════════════════════════════════════════════════ -->
+<section id="pratica">
+  <div class="section-label">Funcionamento</div>
+  <h2 class="section-title">Como Funciona na Prática</h2>
+  <div class="divider"></div>
+  <p class="section-sub">Do pedido ao entregável. O fluxo completo de como a Orquestração Multi-Agêntica processa cada demanda e gera output de alta qualidade.</p>
+
+  <div class="flow-steps">
+
+    <div class="flow-step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Usuário faz um pedido ao James IA V3.0</h4>
+        <p>Toda interação começa com James. O usuário descreve o que precisa em linguagem natural — sem necessidade de especificar qual agente acionar ou qual formato usar.</p>
+        <div class="step-output">→ Input: "Preciso de anúncios para o Meta para captar leads frios"</div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>James consulta a base de conhecimento</h4>
+        <p>Antes de qualquer ação, James lê os arquivos de conhecimento do projeto: briefing, avatar, produto, linguagem e scripts de referência. Esse passo é obrigatório — garante que tudo que sair do squad está alinhado com o projeto.</p>
+        <div class="step-output">→ Lê: conhecimento/01-briefing, 02-avatar, 03-produto, 04-linguagem</div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>James analisa e define a estratégia</h4>
+        <p>Identifica o nível de consciência do público, mapeia o contexto da peça no funil, define o ângulo e estrutura o briefing estratégico. Toma a decisão de qual agente acionará.</p>
+        <div class="step-output">→ Decisão: "Ângulo DOR · Público frio nível 2 · Acionar Mk Franklin + Renanzinho"</div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>James aciona o agente executor com briefing completo</h4>
+        <p>Instrui o usuário a invocar o skill correspondente e fornece todo o contexto necessário para que o agente execute sem lacunas. O agente não precisa perguntar o que James já mapeou.</p>
+        <div class="step-output">→ "Acione /copywriter com: [briefing completo de 5 campos]"<br>→ "Acione /gestor-trafego com: [objetivo, orçamento, público-alvo]"</div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>Agente executor entrega com protocolo próprio</h4>
+        <p>Mk Franklin escreve as copies com os 3 documentos, o mapa de contexto e o checklist anti-IA. Renanzinho monta o plano com projeção de viabilidade e estrutura de campanha. Cada agente entrega no seu padrão de excelência.</p>
+        <div class="step-output">→ Output Mk Franklin: 3 versões de anúncio (ângulos: dor / desejo / prova social)<br>→ Output Renanzinho: plano de campanha + projeção de CPL + estrutura de adsets</div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <h4>James valida e entrega ao usuário</h4>
+        <p>James revisa a entrega com base nos padrões do projeto, sinaliza se algo precisa de ajuste, sugere próximos passos e registra a decisão na memória do projeto para uso futuro.</p>
+        <div class="step-output">→ Entregável final revisado · Salvo na pasta correta · Próximos passos sugeridos</div>
+      </div>
+    </div>
+
+  </div>
+
+  <h3 style="font-size:16px; font-weight:700; color:var(--white); margin:40px 0 20px;">Outputs por Agente</h3>
+  <div class="output-grid">
+    <div class="output-card">
+      <div class="output-card-icon">✍️</div>
+      <h4>Mk Franklin</h4>
+      <p>Copies prontas para publicar. Emails, anúncios, VSLs, páginas de vendas, scripts de vídeo e sequências de WhatsApp — sempre em múltiplas versões para teste A/B.</p>
+    </div>
+    <div class="output-card">
+      <div class="output-card-icon">📊</div>
+      <h4>Renanzinho</h4>
+      <p>Planos de campanha completos, projeções financeiras, relatórios de análise com diagnóstico de causa raiz e planos de ação priorizados por impacto.</p>
+    </div>
+    <div class="output-card">
+      <div class="output-card-icon">🎨</div>
+      <h4>Dalí Studio</h4>
+      <p>Logos em SVG, branding books completos, templates de conteúdo em HTML/CSS, layouts de página responsivos e briefings criativos para produção.</p>
+    </div>
+    <div class="output-card">
+      <div class="output-card-icon">⚡</div>
+      <h4>DaVinci Pro Max</h4>
+      <p>Interfaces HTML/CSS funcionais, componentes frontend, design systems com tokens, auditorias de UX com correções e recomendações técnicas por stack.</p>
+    </div>
+    <div class="output-card">
+      <div class="output-card-icon">👑</div>
+      <h4>James IA V3.0</h4>
+      <p>Estratégias de funil, pesquisas de mercado, análises SWOT, briefings de campanha, planejamentos completos e copies executadas diretamente quando a demanda for sua.</p>
+    </div>
+    <div class="output-card">
+      <div class="output-card-icon">📁</div>
+      <h4>Squad Completo</h4>
+      <p>Campanhas end-to-end: estratégia + copy + tráfego + identidade visual + interface de produto — tudo alinhado à mesma base de conhecimento e tom de voz.</p>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SEÇÃO 6 — MANUAL DE INSTALAÇÃO
+════════════════════════════════════════════════════════ -->
+<section id="instalacao">
+  <div class="section-label">Manual</div>
+  <h2 class="section-title">Como Instalar o Marketing Squad</h2>
+  <div class="divider"></div>
+  <p class="section-sub">Guia passo a passo para implementar a Orquestração Multi-Agêntica em qualquer projeto. Pré-requisito: Claude Code instalado e configurado.</p>
+
+  <div class="card" style="margin-bottom:24px;">
+    <div class="card-title"><div class="icon" style="background:var(--gold-dim);">📋</div>Pré-requisitos</div>
+    <ul class="func-list" style="margin-top:8px;">
+      <li style="color:var(--muted2);">Claude Code (CLI da Anthropic) instalado — <code style="font-family:monospace; color:var(--gold); font-size:12px;">npm install -g @anthropic-ai/claude-code</code></li>
+      <li style="color:var(--muted2);">Conta Anthropic com acesso à API</li>
+      <li style="color:var(--muted2);">Python 3.x instalado (para o DaVinci Pro Max)</li>
+      <li style="color:var(--muted2);">Git instalado (para versionamento e compartilhamento com a equipe)</li>
+    </ul>
+  </div>
+
+  <div class="flow-steps">
+
+    <div class="install-step">
+      <div class="install-step-header">
+        <div class="step-badge">1</div>
+        <h4>Criar a estrutura de pastas do projeto</h4>
+      </div>
+      <p>Crie a pasta raiz do projeto e as subpastas necessárias.</p>
+      <div class="code-block">
+<span class="comment"># Criar estrutura base</span>
+<span class="cmd">mkdir</span> <span class="path">meu-projeto</span>
+<span class="cmd">cd</span> <span class="path">meu-projeto</span>
+<span class="cmd">mkdir</span> <span class="path">conhecimento .claude/skills Designer</span>
+<span class="cmd">mkdir</span> <span class="path">campanhas anuncios emails scripts-videos</span>
+      </div>
+    </div>
+
+    <div class="install-step">
+      <div class="install-step-header">
+        <div class="step-badge">2</div>
+        <h4>Copiar o CLAUDE.md (James IA V3.0)</h4>
+      </div>
+      <p>O CLAUDE.md é o prompt mestre do James IA V3.0. Ele vai para a raiz do projeto. É o primeiro arquivo que o Claude Code carrega ao abrir o projeto.</p>
+      <div class="code-block">
+<span class="comment"># Copiar o CLAUDE.md do repositório do squad para a raiz</span>
+<span class="cmd">cp</span> <span class="path">squad-source/CLAUDE.md</span> <span class="path">./CLAUDE.md</span>
+      </div>
+    </div>
+
+    <div class="install-step">
+      <div class="install-step-header">
+        <div class="step-badge">3</div>
+        <h4>Instalar os 4 agentes como skills</h4>
+      </div>
+      <p>Cada agente é um arquivo SKILL.md dentro de sua respectiva pasta em <code style="font-family:monospace; color:var(--gold); font-size:12px;">.claude/skills/</code>. O Claude Code detecta e carrega automaticamente.</p>
+      <div class="code-block">
+<span class="comment"># Copiar os 4 agentes</span>
+<span class="cmd">cp</span> <span class="path">squad-source/.claude/skills/copywriter/SKILL.md</span> <span class="path">.claude/skills/copywriter/SKILL.md</span>
+<span class="cmd">cp</span> <span class="path">squad-source/.claude/skills/gestor-trafego/SKILL.md</span> <span class="path">.claude/skills/gestor-trafego/SKILL.md</span>
+<span class="cmd">cp</span> <span class="path">squad-source/.claude/skills/criador-marca/SKILL.md</span> <span class="path">.claude/skills/criador-marca/SKILL.md</span>
+<span class="cmd">cp</span> <span class="path">squad-source/.claude/skills/ui-ux-pro-max/SKILL.md</span> <span class="path">.claude/skills/ui-ux-pro-max/SKILL.md</span>
+      </div>
+    </div>
+
+    <div class="install-step">
+      <div class="install-step-header">
+        <div class="step-badge">4</div>
+        <h4>Instalar o motor de busca do DaVinci Pro Max</h4>
+      </div>
+      <p>O DaVinci Pro Max usa scripts Python e base de dados CSV para consultas de design. Precisam estar disponíveis na raiz do projeto.</p>
+      <div class="code-block">
+<span class="comment"># Copiar scripts e dados do DaVinci Pro Max</span>
+<span class="cmd">cp -r</span> <span class="path">squad-source/src/ui-ux-pro-max/scripts</span> <span class="path">./src/ui-ux-pro-max/scripts</span>
+<span class="cmd">cp -r</span> <span class="path">squad-source/src/ui-ux-pro-max/data</span> <span class="path">./src/ui-ux-pro-max/data</span>
+
+<span class="comment"># Testar se está funcionando</span>
+<span class="cmd">python3</span> src/ui-ux-pro-max/scripts/search.py <span class="str">"landing page SaaS"</span> --domain landing
+      </div>
+    </div>
+
+    <div class="install-step">
+      <div class="install-step-header">
+        <div class="step-badge">5</div>
+        <h4>Preencher a base de conhecimento</h4>
+      </div>
+      <p>Sem a base de conhecimento, James IA não opera. São 5 arquivos obrigatórios na pasta <code style="font-family:monospace; color:var(--gold); font-size:12px;">conhecimento/</code>. Você pode preencher manualmente ou pedir ao próprio James IA para ajudar.</p>
+      <div class="code-block">
+<span class="comment"># Arquivos obrigatórios</span>
+<span class="path">conhecimento/01-briefing-projeto.md</span>   <span class="comment">← visão geral do projeto</span>
+<span class="path">conhecimento/02-dossie-publico-alvo.md</span> <span class="comment">← avatar, dores, desejos, objeções</span>
+<span class="path">conhecimento/03-produto-principal.md</span>   <span class="comment">← produto, preço, diferenciais</span>
+<span class="path">conhecimento/04-manual-linguagem.md</span>    <span class="comment">← tom de voz, expressões, proibições</span>
+<span class="path">conhecimento/05-scripts-referencia.md</span>  <span class="comment">← copies aprovadas como referência</span>
+      </div>
+    </div>
+
+    <div class="install-step">
+      <div class="install-step-header">
+        <div class="step-badge">6</div>
+        <h4>Abrir o projeto no Claude Code e verificar</h4>
+      </div>
+      <p>Abra a pasta do projeto no terminal com Claude Code. Os skills serão detectados automaticamente e aparecerão disponíveis.</p>
+      <div class="code-block">
+<span class="comment"># Abrir Claude Code na pasta do projeto</span>
+<span class="cmd">cd</span> <span class="path">meu-projeto</span>
+<span class="cmd">claude</span>
+
+<span class="comment"># Verificar skills carregados (deve aparecer na lista)</span>
+<span class="comment"># /copywriter · /gestor-trafego · /criador-marca · /ui-ux-pro-max</span>
+      </div>
+    </div>
+
+    <div class="install-step">
+      <div class="install-step-header">
+        <div class="step-badge">7</div>
+        <h4>Primeira interação — James assume o comando</h4>
+      </div>
+      <p>Ao abrir o projeto, James IA V3.0 assume automaticamente como orquestrador. Comece descrevendo o projeto ou pedindo o que precisa — James lê a base de conhecimento e distribui para os agentes.</p>
+      <div class="code-block">
+<span class="comment"># Exemplo de primeira interação</span>
+<span class="str">"James, preciso de uma campanha completa de captação de leads para o lançamento"</span>
+
+<span class="comment"># James irá:</span>
+<span class="comment"># 1. Ler os arquivos de conhecimento</span>
+<span class="comment"># 2. Definir a estratégia de funil</span>
+<span class="comment"># 3. Acionar Mk Franklin para copy dos anúncios</span>
+<span class="comment"># 4. Acionar Renanzinho para o plano de mídia</span>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SEÇÃO 7 — GITHUB
+════════════════════════════════════════════════════════ -->
+<section id="github">
+  <div class="section-label">Equipe</div>
+  <h2 class="section-title">Subir no GitHub e Compartilhar com a Equipe</h2>
+  <div class="divider"></div>
+  <p class="section-sub">Como versionar o squad, publicar no GitHub e permitir que qualquer membro da equipe clone e comece a operar com os mesmos agentes.</p>
+
+  <div class="card" style="margin-bottom:24px;">
+    <div class="card-title"><div class="icon" style="background:rgba(62,207,142,0.1);">⚠️</div>O que NÃO vai para o GitHub</div>
+    <p>Nunca commite informações sensíveis. Antes de subir, verifique se não há chaves de API, credenciais ou dados pessoais de clientes nos arquivos de conhecimento.</p>
+  </div>
+
+  <div class="flow-steps">
+
+    <div class="install-step">
+      <div class="install-step-header">
+        <div class="step-badge">1</div>
+        <h4>Criar o .gitignore</h4>
+      </div>
+      <p>Proteja arquivos sensíveis antes de iniciar o repositório.</p>
+      <div class="code-block">
+<span class="comment"># .gitignore recomendado</span>
+<span class="path">.env</span>
+<span class="path">.env.local</span>
+<span class="path">*.key</span>
+<span class="path">node_modules/</span>
+<span class="path">__pycache__/</span>
+<span class="path">.DS_Store</span>
+      </div>
+    </div>
+
+    <div class="install-step">
+      <div class="install-step-header">
+        <div class="step-badge">2</div>
+        <h4>Inicializar o repositório Git</h4>
+      </div>
+      <div class="code-block">
+<span class="cmd">git init</span>
+<span class="cmd">git add</span> .
+<span class="cmd">git commit</span> -m <span class="str">"feat: Marketing Squad instalado — James IA V3.0 + 4 agentes"</span>
+      </div>
+    </div>
+
+    <div class="install-step">
+      <div class="install-step-header">
+        <div class="step-badge">3</div>
+        <h4>Criar repositório no GitHub e conectar</h4>
+      </div>
+      <p>Crie um repositório privado no GitHub (recomendado para projetos de cliente) e conecte ao local.</p>
+      <div class="code-block">
+<span class="comment"># Conectar ao repositório remoto</span>
+<span class="cmd">git remote add origin</span> https://github.com/sua-org/nome-do-repo.git
+<span class="cmd">git branch</span> -M main
+<span class="cmd">git push</span> -u origin main
+      </div>
+    </div>
+
+    <div class="install-step">
+      <div class="install-step-header">
+        <div class="step-badge">4</div>
+        <h4>Equipe clona e instala</h4>
+      </div>
+      <p>Cada membro da equipe clona o repositório e já tem o squad completo funcionando — com os mesmos agentes, mesma base de conhecimento e mesma estrutura.</p>
+      <div class="code-block">
+<span class="comment"># Clonar o squad</span>
+<span class="cmd">git clone</span> https://github.com/sua-org/nome-do-repo.git
+<span class="cmd">cd</span> <span class="path">nome-do-repo</span>
+
+<span class="comment"># Verificar Python para o DaVinci Pro Max</span>
+<span class="cmd">python3 --version</span>
+
+<span class="comment"># Abrir o Claude Code</span>
+<span class="cmd">claude</span>
+      </div>
+    </div>
+
+    <div class="install-step">
+      <div class="install-step-header">
+        <div class="step-badge">5</div>
+        <h4>Fluxo de trabalho em equipe</h4>
+      </div>
+      <p>Cada entregável criado pelo squad vai para a pasta correta e pode ser commitado. A equipe mantém o histórico de todas as copies, campanhas e materiais criados.</p>
+      <div class="code-block">
+<span class="comment"># Após criar material com o squad</span>
+<span class="cmd">git add</span> <span class="path">anuncios/facebook/anuncio-lead-v1.md</span>
+<span class="cmd">git commit</span> -m <span class="str">"feat: anúncios de captação — 3 ângulos — Mk Franklin"</span>
+<span class="cmd">git push</span>
+
+<span class="comment"># Pull para sincronizar com o time</span>
+<span class="cmd">git pull</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="two-col" style="margin-top:24px;">
+    <div class="card">
+      <div class="card-title"><div class="icon" style="background:var(--gold-dim);">🌿</div>Branches por Campanha</div>
+      <p>Crie uma branch para cada lançamento ou campanha. Quando aprovado, merge para main. Mantém o histórico limpo e permite reverter facilmente.</p>
+      <div class="code-block" style="margin-top:12px;">
+<span class="cmd">git checkout</span> -b <span class="str">campanha/lancamento-maio</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="icon" style="background:var(--gold-dim);">🔄</div>Atualizar o Squad</div>
+      <p>Quando houver melhorias nos agentes ou no CLAUDE.md, atualize os arquivos e commite. A equipe recebe as atualizações com um simples git pull.</p>
+      <div class="code-block" style="margin-top:12px;">
+<span class="cmd">git pull origin</span> main
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Marketing Squad · James IA V3.0</div>
+  <div class="footer-sub">Orquestração Multi-Agêntica Inteligente</div>
+</footer>
+
+</body>
+</html>
